@@ -1,0 +1,32 @@
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.page_wrap{margin: 10px 0 0 30px; color: #666;}
+.page_wrap .num_wrap{display: inline-block; vertical-align: middle;}
+.page_wrap .num_wrap span{vertical-align: middle;}
+.page_wrap .num_wrap span em{font-style: normal; margin: 0 2px;}
+.page_wrap .num_wrap select{height: 30px; width: 50px; color: #666; border: 1px solid #D9DADC; font-size: 16px; outline: none; margin: 0 5px; vertical-align: middle;}
+.page_wrap ul{display: inline-block; margin: 7px 0 0 20px; vertical-align: middle;}
+.page_wrap li{float: left; margin-left: 8px; vertical-align: middle;}
+.page_wrap li a{display: inline-block;}
+.page_wrap li.border a{width: 28px; height: 28px; border: 1px solid #D9DADC; background: url(../images/sprite.png) no-repeat;}
+.page_wrap li.border a:hover{background-color: #eee;}
+.page_wrap li.border.disable a{background-color: #eee; cursor: default;}
+.page_wrap li.page_ellip a:hover{cursor: default;}
+.page_wrap li.page_prev a{background-position: -38px -64px; background-color: #fff;}
+.page_wrap li.page_next a{background-position: -68px -64px; background-color: #fff;}
+.page_wrap li.page_prev.disable a{background-position: -38px -96px;}
+.page_wrap li.page_next.disable a{background-position: -68px -96px;}
+.page_wrap li.page_num a,.page_wrap li.page_ellip a{width: 30px; height: 30px; line-height: 30px; text-align: center;}
+.page_wrap li.page_num.on a{background: #4C8DEE; color: #fff;}
+.page_wrap li.text{height: 30px; line-height: 30px;}
+.page_wrap li.t1{margin-left: 20px;}
+.page_wrap li.page_input input{width: 38px; height: 28px; line-height: 28px; text-align: center; background: #fff; outline: none; border: 1px solid #D9DADC;}
+.page_wrap li.page_input input:focus{border-color: #ccc;}
+.page_wrap li.page_go{margin-left: 20px;}
+.page_wrap li.page_go button{width: 40px; height: 30px; line-height: 24px; background: #fff; border: 1px solid #D9DADC; outline: none; font-family: Microsoft YaHei;}
+.page_wrap li.page_go button:hover{border-color: #ccc; background: #eee;}
+.page_wrap li.page_go button:active{border-color: #ccc; background: #e0e0e0;}
