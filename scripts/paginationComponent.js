@@ -99,6 +99,16 @@ var Pagination = React.createClass({
       };
     });
   },
+  handleGoBtn: function() {
+    var inputVal = this.pagenumInput.value;
+    if (isNaN(inputVal)) {
+      return false;
+    }
+    inputVal = parseInt(inputVal);
+    this.setState({
+      pageNumber: inputVal
+    });
+  },
   render: function() {
     var pages = Math.ceil(this.state.total / this.state.pageSize);
     var pageNumberList = this.buildPageNumberElements();
@@ -121,9 +131,9 @@ var Pagination = React.createClass({
           {pageNumberList}
           <li className={nextBtnCls} onClick={this.next}><a href="#"></a></li>
           <li className="text t1">转到</li>
-          <li className="page_input"><input type="text" name="page_num" /></li>
+          <li className="page_input"><input ref={(input) => { this.pagenumInput = input; }} type="text" name="page_num" /></li>
           <li className="text">页</li>
-          <li className="page_go"><button>go</button></li>
+          <li className="page_go" onClick={this.handleGoBtn}><button>go</button></li>
         </ul>
       </div>
     );

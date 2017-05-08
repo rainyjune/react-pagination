@@ -81,4 +81,21 @@ describe('Pagination', function() {
 
   });
 
+  it('should be able to update UI by clicking the next button.', function() {
+    var pagination = TestUtils.renderIntoDocument(<Pagination total={13} pageList={[10, 20, 30]} />);
+    var totalTextNode = TestUtils.scryRenderedDOMComponentsWithClass(pagination, 'num_wrap_total');
+    var pageListControl = TestUtils.scryRenderedDOMComponentsWithTag(pagination, 'select');
+    var pageNumberNode = TestUtils.scryRenderedDOMComponentsWithClass(pagination, 'page_num');
+    var nextBtn = TestUtils.findRenderedDOMComponentWithClass(pagination, 'page_next');
+    var inputCtrl = TestUtils.findRenderedDOMComponentWithTag(pagination, 'input');
+    var goBtn = TestUtils.findRenderedDOMComponentWithClass(pagination, 'page_go');
+
+    expect(pageNumberNode[0].className).toEqual("page_num on");
+    inputCtrl.value = '2';
+    TestUtils.Simulate.click(goBtn);
+    expect(pageNumberNode[0].className).toEqual("page_num");
+    expect(pageNumberNode[1].className).toEqual("page_num on");
+
+  });
+
 });
