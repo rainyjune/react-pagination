@@ -39,8 +39,8 @@ var Pagination = React.createClass({
       onChangePageSize: function(pageSize) {
       },
       onSelectPage: function(pageNumber, pageSize) {
-      }
-    }, this.props);
+
+}    }, this.props);
   },
   buildPageNumberElements: function() {
     var pageNumberElements = [];
@@ -85,11 +85,28 @@ var Pagination = React.createClass({
       pageSize: event.target.value
     });
   },
+  prev: function() {
+    this.setState(function(prevState, props) {
+      return {
+        pageNumber: prevState.pageNumber - 1
+      };
+    });
+  },
+  next: function() {
+    this.setState(function(prevState, props) {
+      return {
+        pageNumber: prevState.pageNumber + 1
+      };
+    });
+  },
   render: function() {
+    var pages = Math.ceil(this.state.total / this.state.pageSize);
     var pageNumberList = this.buildPageNumberElements();
     var paginationSelectOptions = this.state.pageList.map(function(v) {
       return <PaginationSelectControlOption key={v} value={v} />;
     });
+    var prevBtnCls = this.state.pageNumber < 2 ? "page_prev border disable" : "page_prev border";
+    var nextBtnCls = this.state.pageNumber == pages ? "page_next border disable" : "page_next border";
     return (
       <div className="page_wrap">
         <div className="num_wrap">
@@ -100,9 +117,9 @@ var Pagination = React.createClass({
           <span>页</span>
         </div>
         <ul>
-          <li className="page_prev border disable"><a href="#"></a></li>
+          <li className={prevBtnCls} onClick={this.prev}><a href="#"></a></li>
           {pageNumberList}
-          <li className="page_next border"><a href="#"></a></li>
+          <li className={nextBtnCls} onClick={this.next}><a href="#"></a></li>
           <li className="text t1">转到</li>
           <li className="page_input"><input type="text" name="page_num" /></li>
           <li className="text">页</li>
