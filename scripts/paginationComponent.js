@@ -70,6 +70,11 @@ var Pagination = React.createClass({
     }
     return pageNumberElements;
   },
+  changePageSize: function(event) {
+    this.setState({
+      pageSize: event.target.value
+    });
+  },
   render: function() {
     var pageNumberList = this.buildPageNumberElements();
     var paginationSelectOptions = this.state.pageList.map(function(v) {
@@ -79,7 +84,7 @@ var Pagination = React.createClass({
       <div className="page_wrap">
         <div className="num_wrap">
           <span>共<em className="num_wrap_total">{this.state.total}</em>条记录，显示行数</span>
-          <select name="">
+          <select name="" onChange={this.changePageSize}>
             {paginationSelectOptions}
           </select>
           <span>页</span>
