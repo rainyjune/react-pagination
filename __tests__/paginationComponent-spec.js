@@ -36,4 +36,20 @@ describe('Pagination', function() {
     expect(pageListControl[0].children[2].textContent).toEqual('200');
     expect(pageNumberNode.length).toEqual(2);
   });
+
+  it('should be able to update UI by changing the option value.', function() {
+    var pagination = TestUtils.renderIntoDocument(<Pagination total={13} pageList={[10, 20, 30]} />);
+    var totalTextNode = TestUtils.scryRenderedDOMComponentsWithClass(pagination, 'num_wrap_total');
+    var pageListControl = TestUtils.scryRenderedDOMComponentsWithTag(pagination, 'select');
+    var pageNumberNode = TestUtils.scryRenderedDOMComponentsWithClass(pagination, 'page_num');
+
+    expect(pageNumberNode.length).toEqual(2);
+    TestUtils.Simulate.change(pageListControl[0], {target: { value : '20'}});
+    pageNumberNode = TestUtils.scryRenderedDOMComponentsWithClass(pagination, 'page_num');
+    expect(pageNumberNode.length).toEqual(1);
+
+    TestUtils.Simulate.change(pageListControl[0], {target: { value : '10'}});
+    pageNumberNode = TestUtils.scryRenderedDOMComponentsWithClass(pagination, 'page_num');
+    expect(pageNumberNode.length).toEqual(2);
+  });
 });
