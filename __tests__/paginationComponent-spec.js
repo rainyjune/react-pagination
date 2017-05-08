@@ -52,4 +52,18 @@ describe('Pagination', function() {
     pageNumberNode = TestUtils.scryRenderedDOMComponentsWithClass(pagination, 'page_num');
     expect(pageNumberNode.length).toEqual(2);
   });
+
+
+  it('should be able to update UI by clicking the page item.', function() {
+    var pagination = TestUtils.renderIntoDocument(<Pagination total={13} pageList={[10, 20, 30]} />);
+    var totalTextNode = TestUtils.scryRenderedDOMComponentsWithClass(pagination, 'num_wrap_total');
+    var pageListControl = TestUtils.scryRenderedDOMComponentsWithTag(pagination, 'select');
+    var pageNumberNode = TestUtils.scryRenderedDOMComponentsWithClass(pagination, 'page_num');
+
+    expect(pageNumberNode.length).toEqual(2);
+    TestUtils.Simulate.click(pageNumberNode[1]);
+    expect(pageNumberNode[1].className).toEqual("page_num on");
+
+  });
+
 });
