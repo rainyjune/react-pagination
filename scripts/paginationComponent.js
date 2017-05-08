@@ -1,10 +1,14 @@
 // test
 var React = require('react');
 var PaginationNumberItem = React.createClass({
+  clickPageNum: function(newPage) {
+    this.props.onPageNumberChanged(newPage);
+  },
   render: function() {
     if (this.props.pagenum) {
+      var className = this.props.pagenum == this.props.currentPage ? "page_num on" : "page_num";
       return (
-        <li className="page_num" data-pagenum={this.props.pagenum}>
+        <li onClick={this.clickPageNum.bind(null, this.props.pagenum)} className={className} data-pagenum={this.props.pagenum}>
           <a href="javascript:void(0);">{this.props.pagenum}</a>
         </li>
       );
@@ -45,19 +49,19 @@ var Pagination = React.createClass({
     if (pages <= 6) {
       for(var i = 0; i < pages; i++) {
         var page = i + 1;
-        pageNumberElements.push(<PaginationNumberItem key={page} pagenum={page} />);
+        pageNumberElements.push(<PaginationNumberItem onPageNumberChanged={this.changePageNum} currentPage={this.state.pageNumber} key={page} pagenum={page} />);
       }
     } else {
       if (currentPage <= 3 || currentPage >= pages - 2) {
         for(var i = 0; i < 3; i++) {
           var page = i + 1;
-          pageNumberElements.push(<PaginationNumberItem key={page} pagenum={page} />);
+          pageNumberElements.push(<PaginationNumberItem onPageNumberChanged={this.changePageNum} currentPage={this.state.pageNumber} key={page} pagenum={page} />);
         }
         pageNumberElements.push(<PaginationNumberItem />);
       } else {
         for(var i = currentPage - 3; i < currentPage; i++) {
           var page = i + 1;
-          pageNumberElements.push(<PaginationNumberItem key={page} pagenum={page} />);
+          pageNumberElements.push(<PaginationNumberItem onPageNumberChanged={this.changePageNum} currentPage={this.state.pageNumber} key={page} pagenum={page} />);
         }
         if (currentPage + 3 != pages) {
           pageNumberElements.push(<PaginationNumberItem />);
@@ -65,10 +69,16 @@ var Pagination = React.createClass({
       }
       for(var i = pages - 3; i < pages; i++) {
         var page = i + 1;
-        pageNumberElements.push(<PaginationNumberItem key={page} pagenum={page} />);
+        pageNumberElements.push(<PaginationNumberItem onPageNumberChanged={this.changePageNum} currentPage={this.state.pageNumber} key={page} pagenum={page} />);
       }
     }
     return pageNumberElements;
+  },
+  changePageNum: function(newPage) {
+    console.log('newpage:', newPage);
+    this.setState({
+      pageNumber: newPage
+    });
   },
   changePageSize: function(event) {
     this.setState({
