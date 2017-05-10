@@ -96,6 +96,54 @@ describe('Pagination', function() {
     expect(pageNumberNode[0].className).toEqual("page_num");
     expect(pageNumberNode[1].className).toEqual("page_num on");
 
+    inputCtrl.value = '12';
+    TestUtils.Simulate.click(goBtn);
+    expect(pageNumberNode[0].className).toEqual("page_num");
+    expect(pageNumberNode[1].className).toEqual("page_num on");
+
+  });
+
+
+  it('The next button test case', function() {
+    var pagination = TestUtils.renderIntoDocument(<Pagination total={13} pageList={[10, 20, 30]} />);
+    var totalTextNode = TestUtils.scryRenderedDOMComponentsWithClass(pagination, 'num_wrap_total');
+    var pageListControl = TestUtils.scryRenderedDOMComponentsWithTag(pagination, 'select');
+    var pageNumberNode = TestUtils.scryRenderedDOMComponentsWithClass(pagination, 'page_num');
+    var nextBtn = TestUtils.findRenderedDOMComponentWithClass(pagination, 'page_next');
+    var inputCtrl = TestUtils.findRenderedDOMComponentWithTag(pagination, 'input');
+    var goBtn = TestUtils.findRenderedDOMComponentWithClass(pagination, 'page_go');
+
+    expect(pageNumberNode[0].className).toEqual("page_num on");
+    TestUtils.Simulate.click(nextBtn);
+    expect(pageNumberNode[0].className).toEqual("page_num");
+    expect(pageNumberNode[1].className).toEqual("page_num on");
+
+    TestUtils.Simulate.click(nextBtn);
+    expect(pageNumberNode[0].className).toEqual("page_num");
+    expect(pageNumberNode[1].className).toEqual("page_num on");
+
+  });
+
+  it('The prev button test case', function() {
+    var pagination = TestUtils.renderIntoDocument(<Pagination total={13} pageList={[10, 20, 30]} />);
+    var totalTextNode = TestUtils.scryRenderedDOMComponentsWithClass(pagination, 'num_wrap_total');
+    var pageListControl = TestUtils.scryRenderedDOMComponentsWithTag(pagination, 'select');
+    var pageNumberNode = TestUtils.scryRenderedDOMComponentsWithClass(pagination, 'page_num');
+    var prevBtn = TestUtils.findRenderedDOMComponentWithClass(pagination, 'page_prev');
+    var nextBtn = TestUtils.findRenderedDOMComponentWithClass(pagination, 'page_next');
+    var inputCtrl = TestUtils.findRenderedDOMComponentWithTag(pagination, 'input');
+    var goBtn = TestUtils.findRenderedDOMComponentWithClass(pagination, 'page_go');
+
+    expect(pageNumberNode[0].className).toEqual("page_num on");
+    expect(pageNumberNode[1].className).toEqual("page_num");
+    TestUtils.Simulate.click(prevBtn);
+    expect(pageNumberNode[0].className).toEqual("page_num on");
+    expect(pageNumberNode[1].className).toEqual("page_num");
+
+    TestUtils.Simulate.click(prevBtn);
+    expect(pageNumberNode[0].className).toEqual("page_num on");
+    expect(pageNumberNode[1].className).toEqual("page_num");
+
   });
 
 });
