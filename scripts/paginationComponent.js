@@ -134,7 +134,7 @@ var Pagination = React.createClass({
       <div className="page_wrap">
         <div className="num_wrap">
           <span>共<em className="num_wrap_total">{this.props.total}</em>条记录，显示行数</span>
-          <select name="" onChange={this.changePageSize}>
+          <select name="" onChange={this.changePageSize} value={this.state.pageSize}>
             {paginationSelectOptions}
           </select>
           <span>页</span>
