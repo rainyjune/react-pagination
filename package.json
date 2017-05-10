@@ -30,7 +30,6 @@
     "gulp-react": "^3.0.1",
     "gulp-shell": "^0.4.1",
     "harmonize": "^1.4.1",
-    "jest-cli": "^0.8",
     "jspm": "^0.15.5",
     "react": "^0.14",
     "react-addons-test-utils": "^0.14.7",
@@ -39,7 +38,9 @@
   },
   "devDependencies": {
     "browser-sync": "^2.7.1",
-    "gulp": "^3.8.11"
+    "gulp": "^3.8.11",
+    "jest": "^20.0.0",
+    "jest-cli": "^20.0.0"
   },
   "jspm": {
     "directories": {},
