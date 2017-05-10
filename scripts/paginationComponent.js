@@ -77,9 +77,7 @@ var Pagination = React.createClass({
     return pageNumberElements;
   },
   changePageNum: function(newPage) {
-    this.setState({
-      pageNumber: newPage
-    });
+    this.gotoPage(newPage);
   },
   changePageSize: function(event) {
     var newPageSize = event.target.value;
@@ -92,6 +90,8 @@ var Pagination = React.createClass({
         newStates.pageNumber = pages;
       }
       return newStates;
+    }, function() {
+      this.props.onChangePageSize(this.state.pageSize);
     });
   },
   prev: function() {
@@ -119,6 +119,9 @@ var Pagination = React.createClass({
     if (newPage > 0 && newPage <= pages) {
       this.setState({
         pageNumber: newPage
+      }, function() {
+
+        this.props.onSelectPage(this.state.pageNumber, this.state.pageSize);
       });
     }
   },
