@@ -2,13 +2,34 @@ jest.dontMock('../scripts/paginationComponent.js');
 
 describe('Pagination', function() {
   var React = require('react');
-  var ReactDOM = require('react-dom');
+  //var ReactDOM = require('react-dom');
   var TestUtils = require('react-addons-test-utils');
 
   var Pagination;
 
   beforeEach(function() {
     Pagination = require('../scripts/paginationComponent');
+  });
+
+  test('onChangePageSize event test', (done) => {
+    function changeSize(newSize) {
+      expect(newSize).toEqual('20');
+      done();
+    }
+    var pagination = TestUtils.renderIntoDocument(<Pagination total={13} pageList={[10, 20, 30]} onChangePageSize={changeSize} />);
+    var pageListControl = TestUtils.findRenderedDOMComponentWithTag(pagination, 'select');
+    TestUtils.Simulate.change(pageListControl, {target: { value : '20'}});
+  });
+
+  test('onSelectPage event test', (done) => {
+    function selectPage(pageNumber, pageSize) {
+      expect(pageNumber).toEqual(2);
+      expect(pageSize).toEqual(10);
+      done();
+    }
+    var pagination = TestUtils.renderIntoDocument(<Pagination total={13} pageList={[10, 20, 30]} onSelectPage={selectPage} />);
+    var pageNumberNode = TestUtils.scryRenderedDOMComponentsWithClass(pagination, 'page_num');
+    TestUtils.Simulate.click(pageNumberNode[1]);
   });
 
   // Test case 1: The pagination should exists as a React Component
