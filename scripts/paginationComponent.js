@@ -29,22 +29,24 @@ var PaginationSelectControlOption = React.createClass({
   }
 });
 var Pagination = React.createClass({
+  getDefaultProps: function() {
+    return {
+      total: 0,
+      pageList: [10, 20, 30, 50],
+      onChangePageSize: function(pageSize) {},
+      onSelectPage: function(pageNumber, pageSize) {}
+    };
+  },
   getInitialState: function() {
     return Object.assign({}, {
-      total: 1,
-      pageList: [10, 20, 30, 50],
       pageSize: 10,
       pageNumber: 1,
-      loading: false,
-      onChangePageSize: function(pageSize) {
-      },
-      onSelectPage: function(pageNumber, pageSize) {
-
-}    }, this.props);
+      loading: false
+    }, this.props);
   },
   buildPageNumberElements: function() {
     var pageNumberElements = [];
-    var pages = Math.ceil(this.state.total / this.state.pageSize);
+    var pages = Math.ceil(this.props.total / this.state.pageSize);
     var currentPage = this.state.pageNumber;
     if (pages <= 6) {
       for(var i = 0; i < pages; i++) {
@@ -75,7 +77,6 @@ var Pagination = React.createClass({
     return pageNumberElements;
   },
   changePageNum: function(newPage) {
-    console.log('newpage:', newPage);
     this.setState({
       pageNumber: newPage
     });
@@ -114,7 +115,7 @@ var Pagination = React.createClass({
   gotoPage: function(newPage) {
     newPage = parseInt(newPage);
     if (isNaN(newPage)) return false;
-    var pages = Math.ceil(this.state.total / this.state.pageSize);
+    var pages = Math.ceil(this.props.total / this.state.pageSize);
     if (newPage > 0 && newPage <= pages) {
       this.setState({
         pageNumber: newPage
@@ -122,17 +123,17 @@ var Pagination = React.createClass({
     }
   },
   render: function() {
-    var pages = Math.ceil(this.state.total / this.state.pageSize);
+    var pages = Math.ceil(this.props.total / this.state.pageSize);
     var pageNumberList = this.buildPageNumberElements();
-    var paginationSelectOptions = this.state.pageList.map(function(v) {
-      return <PaginationSelectControlOption key={v} value={v} />;
+    var paginationSelectOptions = this.props.pageList.map(function(v) {
+      return <PaginationSelectControlOption key={v.toString()} value={v} />;
     });
     var prevBtnCls = this.state.pageNumber < 2 ? "page_prev border disable" : "page_prev border";
     var nextBtnCls = this.state.pageNumber == pages ? "page_next border disable" : "page_next border";
     return (
       <div className="page_wrap">
         <div className="num_wrap">
-          <span>共<em className="num_wrap_total">{this.state.total}</em>条记录，显示行数</span>
+          <span>共<em className="num_wrap_total">{this.props.total}</em>条记录，显示行数</span>
           <select name="" onChange={this.changePageSize}>
             {paginationSelectOptions}
           </select>
