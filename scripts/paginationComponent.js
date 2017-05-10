@@ -129,7 +129,7 @@ var Pagination = React.createClass({
       return <PaginationSelectControlOption key={v.toString()} value={v} />;
     });
     var prevBtnCls = this.state.pageNumber < 2 ? "page_prev border disable" : "page_prev border";
-    var nextBtnCls = this.state.pageNumber == pages ? "page_next border disable" : "page_next border";
+    var nextBtnCls = (pages == 0 || this.state.pageNumber == pages) ? "page_next border disable" : "page_next border";
     return (
       <div className="page_wrap">
         <div className="num_wrap">
