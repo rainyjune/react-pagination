@@ -37,6 +37,13 @@ describe('Pagination', function() {
     expect(pageNumberNode.length).toEqual(2);
   });
 
+  it('should select the correct dropdown option', function() {
+    var pagination = TestUtils.renderIntoDocument(<Pagination total={13} pageList={[10, 20, 30]} pageSize="20" />);
+    var pageListControl = TestUtils.findRenderedDOMComponentWithTag(pagination, 'select');
+    expect(pageListControl.value).toEqual('20');
+
+  });
+
   it('should be able to update UI by clicking the page item.', function() {
     var pagination = TestUtils.renderIntoDocument(<Pagination total={13} pageList={[10, 20, 30]} />);
     var totalTextNode = TestUtils.scryRenderedDOMComponentsWithClass(pagination, 'num_wrap_total');
