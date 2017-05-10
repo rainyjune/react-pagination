@@ -37,23 +37,6 @@ describe('Pagination', function() {
     expect(pageNumberNode.length).toEqual(2);
   });
 
-  it('should be able to update UI by changing the option value.', function() {
-    var pagination = TestUtils.renderIntoDocument(<Pagination total={13} pageList={[10, 20, 30]} />);
-    var totalTextNode = TestUtils.scryRenderedDOMComponentsWithClass(pagination, 'num_wrap_total');
-    var pageListControl = TestUtils.scryRenderedDOMComponentsWithTag(pagination, 'select');
-    var pageNumberNode = TestUtils.scryRenderedDOMComponentsWithClass(pagination, 'page_num');
-
-    expect(pageNumberNode.length).toEqual(2);
-    TestUtils.Simulate.change(pageListControl[0], {target: { value : '20'}});
-    pageNumberNode = TestUtils.scryRenderedDOMComponentsWithClass(pagination, 'page_num');
-    expect(pageNumberNode.length).toEqual(1);
-
-    TestUtils.Simulate.change(pageListControl[0], {target: { value : '10'}});
-    pageNumberNode = TestUtils.scryRenderedDOMComponentsWithClass(pagination, 'page_num');
-    expect(pageNumberNode.length).toEqual(2);
-  });
-
-
   it('should be able to update UI by clicking the page item.', function() {
     var pagination = TestUtils.renderIntoDocument(<Pagination total={13} pageList={[10, 20, 30]} />);
     var totalTextNode = TestUtils.scryRenderedDOMComponentsWithClass(pagination, 'num_wrap_total');
@@ -64,6 +47,29 @@ describe('Pagination', function() {
     TestUtils.Simulate.click(pageNumberNode[1]);
     expect(pageNumberNode[1].className).toEqual("page_num on");
 
+  });
+
+  it('should be able to update UI by changing the option value.', function() {
+    var pagination = TestUtils.renderIntoDocument(<Pagination total={13} pageList={[10, 20, 30]} />);
+    var totalTextNode = TestUtils.scryRenderedDOMComponentsWithClass(pagination, 'num_wrap_total');
+    var pageListControl = TestUtils.scryRenderedDOMComponentsWithTag(pagination, 'select');
+    var pageNumberNode = TestUtils.scryRenderedDOMComponentsWithClass(pagination, 'page_num');
+
+    expect(pageNumberNode.length).toEqual(2);
+    TestUtils.Simulate.change(pageListControl[0], {target: { value : '20'}});
+    pageNumberNode = TestUtils.scryRenderedDOMComponentsWithClass(pagination, 'page_num');
+    expect(pageNumberNode.length).toEqual(1);
+    expect(pageNumberNode[0].className).toEqual("page_num on");
+
+    TestUtils.Simulate.change(pageListControl[0], {target: { value : '10'}});
+    pageNumberNode = TestUtils.scryRenderedDOMComponentsWithClass(pagination, 'page_num');
+    expect(pageNumberNode.length).toEqual(2);
+
+    TestUtils.Simulate.click(pageNumberNode[1]);
+    TestUtils.Simulate.change(pageListControl[0], {target: { value : '20'}});
+    pageNumberNode = TestUtils.scryRenderedDOMComponentsWithClass(pagination, 'page_num');
+    expect(pageNumberNode.length).toEqual(1);
+    expect(pageNumberNode[0].className).toEqual("page_num on");
   });
 
 
