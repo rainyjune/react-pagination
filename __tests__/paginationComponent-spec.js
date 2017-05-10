@@ -18,6 +18,20 @@ describe('Pagination', function() {
     expect(TestUtils.isCompositeComponent(pagination)).toBeTruthy();
   });
 
+  it('total=0', function() {
+    var pagination = TestUtils.renderIntoDocument(<Pagination />);
+    var totalTextNode = TestUtils.findRenderedDOMComponentWithClass(pagination, 'num_wrap_total');
+    var pageListControl = TestUtils.findRenderedDOMComponentWithTag(pagination, 'select');
+    var prevBtn = TestUtils.findRenderedDOMComponentWithClass(pagination, 'page_prev');
+    var nextBtn = TestUtils.findRenderedDOMComponentWithClass(pagination, 'page_next');
+
+    expect(totalTextNode.textContent).toEqual('0');
+    expect(pageListControl.value).toEqual('10');
+    expect(prevBtn.className).toEqual('page_prev border disable');
+    expect(nextBtn.className).toEqual('page_next border disable');
+
+  });
+
   // Test case 2: Pagination should build the layout from data passed as props.
   it('should build the layout from data passed as prop', function() {
 
