@@ -87,16 +87,12 @@ var Pagination = React.createClass({
   },
   prev: function() {
     this.setState(function(prevState, props) {
-      return {
-        pageNumber: prevState.pageNumber - 1
-      };
+      this.gotoPage(prevState.pageNumber - 1);
     });
   },
   next: function() {
     this.setState(function(prevState, props) {
-      return {
-        pageNumber: prevState.pageNumber + 1
-      };
+      this.gotoPage(prevState.pageNumber + 1);
     });
   },
   handleGoBtn: function() {
@@ -105,9 +101,17 @@ var Pagination = React.createClass({
       return false;
     }
     inputVal = parseInt(inputVal);
-    this.setState({
-      pageNumber: inputVal
-    });
+    this.gotoPage(inputVal);
+  },
+  gotoPage: function(newPage) {
+    newPage = parseInt(newPage);
+    if (isNaN(newPage)) return false;
+    var pages = Math.ceil(this.state.total / this.state.pageSize);
+    if (newPage > 0 && newPage <= pages) {
+      this.setState({
+        pageNumber: newPage
+      });
+    }
   },
   render: function() {
     var pages = Math.ceil(this.state.total / this.state.pageSize);
