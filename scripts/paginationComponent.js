@@ -81,8 +81,16 @@ var Pagination = React.createClass({
     });
   },
   changePageSize: function(event) {
-    this.setState({
-      pageSize: event.target.value
+    var newPageSize = event.target.value;
+    this.setState(function(prevState, props) {
+      var newStates = {
+        pageSize: newPageSize
+      };
+      var pages = Math.ceil(props.total / newPageSize);
+      if (prevState.pageNumber > pages) {
+        newStates.pageNumber = pages;
+      }
+      return newStates;
     });
   },
   prev: function() {
